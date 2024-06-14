@@ -1,0 +1,24 @@
+# Systemd unit file for API
+[Unit]
+Description=API - API
+After=syslog.target network.target mariadb.service
+
+[Service]
+#Type=forking
+
+ExecStart=/usr/bin/npm run start:prod
+ExecStop=/bin/kill -15 $MAINPID
+WorkingDirectory=/home/stefano_bane/gg-teamwear/api
+
+# Output to syslog
+StandardOutput=syslog
+StandardError=syslog
+
+SyslogIdentifier=Api
+
+RestartSec=10
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+

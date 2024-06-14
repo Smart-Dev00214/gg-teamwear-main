@@ -1,0 +1,20 @@
+[Unit]
+Description=BOTS Front End - Front end for  ...
+After=syslog.target network.target httpd.service mariadb.service
+
+[Service]
+ExecStart=/usr/bin/sudo /usr/bin/python /home/stefano_bane/gg-teamwear/bots-3.2.0/bots-webserver.py
+ExecStop=/bin/kill -15 $MAINPID
+
+# Output to syslog
+StandardOutput=syslog
+StandardError=syslog
+
+SyslogIdentifier=BOTS-FRONTEND
+TimeoutSec=900
+RestartSec=10
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
